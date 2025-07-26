@@ -1,0 +1,24 @@
+name: Update Test Data on Excel Change
+on:
+  push:
+    paths:
+      - 'testdata/ticket_data.xlsx' #monitor changes to excel file
+    branches:
+      - main
+jobs:
+  regenerate-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout_repo
+        uses: actions/checkout@v3
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+      - name: Run Playwright tests
+        run: |
+          pytest datacreation_tests/test_flightbooking.py
