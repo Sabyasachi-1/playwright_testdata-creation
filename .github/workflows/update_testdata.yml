@@ -19,6 +19,11 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+      - name: Install playwright browsers
+        run: |
+          playwright install
       - name: Run Playwright tests
         run: |
           pytest datacreation_tests/test_flightbooking.py
+        env:
+          CI: true
